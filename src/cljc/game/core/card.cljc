@@ -236,6 +236,12 @@
   [card faction]
   (card-is? card :faction faction))
 
+(defn is-cost?
+  "Checks if the card is of the specified type, where the type is a string."
+  [card cost]
+  (let [cv (:cost card)]
+  (> cost cv)))
+
 (declare facedown?)
 
 (defn agenda?
