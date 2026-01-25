@@ -1,0 +1,5 @@
+npm run cljs:build
+npm run css:build
+lein fetch --local ../halfbreed-data
+lein create-indexes
+lein repl

@@ -21,7 +21,7 @@
    {:title [:nav_deck-builder "Deck Builder"]
     :cls "deckbuilder"
     :route "/deckbuilder"}
-   {:title [:nav_play "Play"]
+   {:title [:nav_play "Jack In"]
     :cls "play"
     :route "/play"}
    {:title [:nav_help "Help"]

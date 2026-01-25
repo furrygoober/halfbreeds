@@ -305,16 +305,16 @@
            [avatar @user {:opts {:size 38}}]
            [:a {:href "http://gravatar.com" :target "_blank"}
             [tr-span [:settings_change-avatar "Change on gravatar.com"]]]]
-          [:section
-           [tr-element :h3 [:settings_pronouns "Pronouns"]]
-           [:select {:value (:pronouns @s "none")
-                     :on-change #(swap! s assoc :pronouns (.. % -target -value))}
-            (doall
-             (for [[title ref] pronoun-list]
-               [:option {:value ref :key ref :data-i18n-key :pronouns :data-i18n-value title}
-                (tr [:pronouns title] {:pronoun ref})]))]
-           [:div [tr-span [:settings_pronouns-request "If your personal pronouns are not represented, you can request them"]] " "
-            [:a {:href "https://github.com/mtgred/netrunner/issues"} [tr-span [:settings_pronouns-here "here"]]]]]
+          ;[:section
+          ; [tr-element :h3 [:settings_pronouns "Pronouns"]]
+          ; [:select {:value (:pronouns @s "none")
+          ;           :on-change #(swap! s assoc :pronouns (.. % -target -value))}
+          ;  (doall
+          ;   (for [[title ref] pronoun-list]
+          ;     [:option {:value ref :key ref :data-i18n-key :pronouns :data-i18n-value title}
+          ;      (tr [:pronouns title] {:pronoun ref})]))]
+          ; [:div [tr-span [:settings_pronouns-request "If your personal pronouns are not represented, you can request them"]] " "
+          ;  [:a {:href "https://github.com/mtgred/netrunner/issues"} [tr-span [:settings_pronouns-here "here"]]]]]
           [:section
            [tr :h3 [:settings_language "Language"]]
            [:select {:value (:language @s "en")
