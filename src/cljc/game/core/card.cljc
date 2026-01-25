@@ -28,6 +28,7 @@
    facedown
    faces
    faction
+   factions
    format
    host
    hosted
@@ -229,6 +230,11 @@
   "Checks if the card is of the specified type, where the type is a string."
   [card type]
   (card-is? card :type type))
+
+(defn is-fact?
+  "Checks if the card is of the specified type, where the type is a string."
+  [card faction]
+  (card-is? card :faction faction))
 
 (declare facedown?)
 
