@@ -232,12 +232,17 @@
   (card-is? card :type type))
 
 (defn is-fact?
-  "Checks if the card is of the specified type, where the type is a string."
+  "Checks if the card is of the specified faction."
   [card faction]
   (card-is? card :faction faction))
 
+(defn is-nottitle?
+  "Checks if the card is not of the title."
+  [card title]
+  (not (card-is? card :title title)))
+
 (defn is-cost?
-  "Checks if the card is of the specified type, where the type is a string."
+  "Checks if the card cost less then number sent."
   [card cost]
   (let [cv (:cost card)]
   (> cost cv)))

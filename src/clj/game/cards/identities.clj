@@ -7,7 +7,7 @@
                             get-all-cards get-remote-names get-remotes server->zone]]
    [game.core.card :refer [agenda? asset? can-be-advanced?
                            condition-counter? corp-installable-type? corp? event? faceup? get-advancement-requirement
-                           get-agenda-points get-card get-counters get-title get-zone hardware? has-subtype?
+                           get-agenda-points get-card get-counters get-title get-zone hardware? has-subtype? is-nottitle?
                            has-any-subtype? ice? in-discard? in-deck? in-hand? in-play-area? in-rfg? installed? is-type? is-cost? is-fact?
                            operation? program? resource? rezzed? runner? upgrade?]]
    [game.core.charge :refer [charge-ability]]
@@ -2811,7 +2811,7 @@
               :async true
               :waiting-prompt true
               :effect (req (let [consoles (->> (server-cards)
-                                                 (filter #(and (has-subtype? % "Console") (is-cost? % 6) (is-fact? % "Criminal")))
+                                                 (filter #(and (has-subtype? % "Console") (is-cost? % 6) (is-fact? % "Criminal") (is-nottitle? % "Desperado")))
                                                  ;(filter #(and (is-fact? % "Criminal") (has-subtype? % "Console") (is-cost? % "3")))
                                                  (map make-card)
                                                  (map #(assoc % :zone [:play-area]))
