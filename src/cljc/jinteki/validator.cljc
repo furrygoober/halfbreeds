@@ -178,7 +178,9 @@
            (draft-id? identity)
            (singleton-id? identity))
        (or (not= title "Custom Biotics: Engineered for Success")
-           (not= (:faction card) "Jinteki"))))
+           (not= (:faction card) "Jinteki"))
+       (or (not= title "Haze: SOB")
+           (not= (:faction card) "Criminal"))))
 
 (defn valid-deck?
   "Checks that a given deck follows deckbuilding rules"
