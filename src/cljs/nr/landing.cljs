@@ -31,7 +31,7 @@
 
 (defn landing []
   [:div.page-container
-   [:div.apex-bg]
+   [:div.welcome-bg]
    [:div.landing-message
     (let [link [:a {:href "https://www.nearearthhub.net/" :target "_blank"} "nearearthhub.net"]]
       [tr-element-with-embedded-content :h4 [:landing_visit-neh-for-rules [:span "Visit " link " for links to rules and other resources"]] {:link link} nil])
