@@ -32,66 +32,74 @@
          [:div.about.panel.content-page.blue-shade {:ref #(reset! !node-ref %)}
           [tr-element :h3 [:about_about "About"]]
           [tr-element :p [:about_founded-by "This website was founded by @mtgred, an avid Netrunner player from Belgium. The goal is to provide a great way to create and test Netrunner decks online."]]
-          [tr-element :h3 [:about_development "Development"]]
+          ;[tr-element :h3 [:about_development "Development"]]
           [tr-element :h4 [:about_software-development-team "Software Development Team"]]
           [:ul.list.compact
-           [:li [linked-person "@mtgred" "http://twitter.com/mtgred"] ": " [tr-span [:about_founder-attribution "Founder, original sole developer. Retired."]]]
-           [:li [linked-person "NoahTheDuke" "https://github.com/noahtheduke"] ": " [tr-span [:about_maintainer-attribution "Project maintainer, lead developer."]]]
-           [:li
-            [linked-person "nbkelly" "https://ko-fi.com/nbkelly"] ", "
-            [linked-person "butzopower" "https://github.com/butzopower"] ", "
-            [linked-person "francescopellegrini" "https://github.com/francescopellegrini"] ": "
-            [tr-span [:about_active-contributors "Current active contributors."]]]
-            [:li [:a {:href "https://github.com/mtgred/netrunner/graphs/contributors" :target "_blank"} [tr-span [:about_past-contributors "Many past contributors."]]]]]
+           [tr-span [:about_founder-attribution "Founder, original sole developer. Retired."]]
+           ;[:li [linked-person "@mtgred" "http://twitter.com/mtgred"] ": " [tr-span [:about_founder-attribution "Founder, original sole developer. Retired."]]]
+           ;[:li [linked-person "NoahTheDuke" "https://github.com/noahtheduke"] ": " [tr-span [:about_maintainer-attribution "Project maintainer, lead developer."]]]
+           ;[:li
+           ; [linked-person "nbkelly" "https://ko-fi.com/nbkelly"] ", "
+           ; [linked-person "butzopower" "https://github.com/butzopower"] ", "
+           ; [linked-person "francescopellegrini" "https://github.com/francescopellegrini"] ": "
+           ; [tr-span [:about_active-contributors "Current active contributors."]]]
+           ; [:li [:a {:href "https://github.com/mtgred/netrunner/graphs/contributors" :target "_blank"} [tr-span [:about_past-contributors "Many past contributors."]]]]]
+            ]
 
-          [tr-element :h4 [:about_content-creators "Content Creators"]]
+          [tr-element :h4 [:about_content-creators "Other places that may be of worship, or uplink access points, or network nodes:"]]
           [:ul.list.compact
            [:li
-            [linked-person "0thmxma" "https://web-cdn.bsky.app/profile/0thmxma.bsky.social"] ", "
-            [linked-person "Sanjay" "https://stimhack.com/yugioh-and-you-by-sanjay/"] ", "
-            "quarg, "
-            [linked-person "znsolomon" "https://contactthearchivists.podbean.com/"]
-            ", hbarsquared, yankeeflatline, rumirumirumirumi: "
-            [tr-span [:about_start-of-game-quotes "Corp and Runner quotes for start-of-game splash screen."]]]
-           [:li [linked-person "nbkelly" "https://ko-fi.com/nbkelly"] ": "
-            [tr-span [:about_translated-images "Processing/handling of translated NSG card images, and card backs for community tournaments."]]]
-           [:li [linked-person "nbkelly" "https://ko-fi.com/nbkelly"] ", " [linked-person "xiaat" "https://github.com/xiaat"] ": "
-            [tr-span [:about_alt-art-management "Management/handling/processing of community alt arts for jinteki.net. If you want your art on jinteki.net, contact one of us."]]]
-           [:li "PopTartNZ: " [tr-span [:about_high-res-images "High-resolution scans for FFG cards."]]]
+            [linked-person "reteki.fun" "https://reteki.fun/"] ", "
+            [linked-person "reteki db" "https://nrdb.reteki.fun/"] ": "
+            [linked-person "reteki info " "https://sites.google.com/view/netrunner-reboot-project/"] ": "
+            "This is Android Netrunner back when it was still cool. Before it became...Mumbad."
+            ;[linked-person "znsolomon" "https://contactthearchivists.podbean.com/"]
+            ;", hbarsquared, yankeeflatline, rumirumirumirumi: "
+            ;[tr-span [:about_start-of-game-quotes "Corp and Runner quotes for start-of-game splash screen."]]]
+            ]
+           [:li [linked-person "sneakdoorbeta" "https://play.sneakdoorbeta.net/"] ": "
+            [tr-span [:about_translated-images "Looks to be a Chinese jinteki site."]]]
+           [:li [linked-person "chiriboga" "https://chiriboga.sifnt.net.au/"] ": "; [linked-person "xiaat" "https://github.com/xiaat"] ": "
+            [tr-span [:about_alt-art-management "Play against a false god"]]]
+           ;[:li "PopTartNZ: " [tr-span [:about_high-res-images "High-resolution scans for FFG cards."]]]
            [:li
-            [linked-person "Rhahi" "https://github.com/Rhahi"] ": Labelling and other QoL functionality ported with permission from "
-            [:a {:href "https://addons.mozilla.org/en-US/firefox/addon/cyberfeeder/" :target "_blank"} "Cyberfeeder firefox plugin"]]
-           [make-artists alt-info]]
+            [linked-person "halfbreeds" "https://halfbreeds.netrunner.es"] ": This site"]
+           [:li
+            [linked-person "jinteki" "https://jinteki.net"] ","
+            [linked-person "netrunnerdb" "netrunnerdb.com"] ": The source"]
+            ;[:a {:href "https://addons.mozilla.org/en-US/firefox/addon/cyberfeeder/" :target "_blank"} "Cyberfeeder firefox plugin"]]
+           ;[make-artists alt-info]
+            ]
 
-          [tr-element :h4 [:about_ui-translators "UI Translators"]]
-          [:ul.list.compact
-           [:li [tr-span [:lang_zh-simp "Chinese (Simplified)"]] ": " [linked-person "bbbbbbbbba" "https://github.com/bbbbbbbbba"] ", " [linked-person "klingeling" "https://github.com/klingeling"]]
-           [:li [tr-span [:lang_fr "French"]] ": canisinhorto"]
-           [:li [tr-span [:lang_it "Italian"]] ": " [linked-person "gianluks90" "https://github.com/Gianluks90"]]
-           [:li [tr-span [:lang_ja "Japanese"]] ": " [linked-person "csbisa" "https://github.com/csbisa"]]
-           [:li [tr-span [:lang_ko "Korean"]] ": Seojun Park"]
-           [:li [tr-span [:lang_la-pig "Pig-Latin"]] ": " [linked-person "jwarwick" "https://github.com/jwarwick"]]
-           [:li [tr-span [:lang_pl "Polish"]] ": " [linked-person "vesperius" "https://vesper.cyberpunk.me/"]]
-           [:li [tr-span [:lang_pt "Portuguese"]] ": Vacilotto"]
-           [:li [tr-span [:lang_ru "Russian"]] ": " [linked-person "xiaat" "https://github.com/xiaat"]]]
+          ;[tr-element :h4 [:about_ui-translators "UI Translators"]]
+          ;[:ul.list.compact
+          ; [:li [tr-span [:lang_zh-simp "Chinese (Simplified)"]] ": " [linked-person "bbbbbbbbba" "https://github.com/bbbbbbbbba"] ", " [linked-person "klingeling" "https://github.com/klingeling"]]
+          ; [:li [tr-span [:lang_fr "French"]] ": canisinhorto"]
+          ; [:li [tr-span [:lang_it "Italian"]] ": " [linked-person "gianluks90" "https://github.com/Gianluks90"]]
+          ; [:li [tr-span [:lang_ja "Japanese"]] ": " [linked-person "csbisa" "https://github.com/csbisa"]]
+          ; [:li [tr-span [:lang_ko "Korean"]] ": Seojun Park"]
+          ; [:li [tr-span [:lang_la-pig "Pig-Latin"]] ": " [linked-person "jwarwick" "https://github.com/jwarwick"]]
+          ; [:li [tr-span [:lang_pl "Polish"]] ": " [linked-person "vesperius" "https://vesper.cyberpunk.me/"]]
+          ; [:li [tr-span [:lang_pt "Portuguese"]] ": Vacilotto"]
+          ; [:li [tr-span [:lang_ru "Russian"]] ": " [linked-person "xiaat" "https://github.com/xiaat"]]]
 
-          [tr-element :h4 [:about_tech-stack "Tech Stack"]]
-          [:ul.list.compact
-           [:li [tr-element :b [:about_game-engine "Game engine:"]] " Clojure. Card data from " [:a {:href "https://netrunnerdb.com/" :target "_blank"} "NetrunnerDB"] " API."]
-           [:li [tr-element :b [:about_server "Server:"]] " Clojure. Ring and Compojure running on http-kit. Sente for websocket communications."]
-           [:li [tr-element :b [:about_front-end-client "Front-end client:"]] " ClojureScript. Reagent (React). "]]
+          ;[tr-element :h4 [:about_tech-stack "Tech Stack"]]
+          ;[:ul.list.compact
+          ; [:li [tr-element :b [:about_game-engine "Game engine:"]] " Clojure. Card data from " [:a {:href "https://netrunnerdb.com/" :target "_blank"} "NetrunnerDB"] " API."]
+          ; [:li [tr-element :b [:about_server "Server:"]] " Clojure. Ring and Compojure running on http-kit. Sente for websocket communications."]
+          ; [:li [tr-element :b [:about_front-end-client "Front-end client:"]] " ClojureScript. Reagent (React). "]]
 
-          (let [link [:a {:href "https://github.com/mtgred/netrunner/issues" :target "_blank"} [tr-span [:about_url-github "Github"]]]]
-            [tr-element-with-embedded-content :p [:about_open-source [:span "The code is open source and available on" link "."]] {:link link}])
+         ; (let [link [:a {:href "https://github.com/mtgred/netrunner/issues" :target "_blank"} [tr-span [:about_url-github "Github"]]]]
+         ;   [tr-element-with-embedded-content :p [:about_open-source [:span "The code is open source and available on" link "."]] {:link link}])
 
-          (let [link [:a {:href "https://github.com/mtgred/netrunner/issues" :target "_blank"} [tr-span [:about_url-here "here"]]]]
-            [tr-element-with-embedded-content :p [:about_bug-reports [:span "Bug reports and feature suggestions can be submitted " link "."]] {:link link}])
+         ; (let [link [:a {:href "https://github.com/mtgred/netrunner/issues" :target "_blank"} [tr-span [:about_url-here "here"]]]]
+         ;   [tr-element-with-embedded-content :p [:about_bug-reports [:span "Bug reports and feature suggestions can be submitted " link "."]] {:link link}])
 
           [tr-element :h3 [:about_donations "Donations"]]
           [tr-element :p [:about_donations-long "Donations are appreciated and help finance fast servers. You can support the project financially with PayPal or Bitcoin. Alternate art cards will be enabled on your account as a token of gratitude. Please specify your username with your donation."]]
           [:ul.list.compact
-           [:li "PayPal: mtgred@gmail.com or " [:a {:href "https://www.paypal.me/mtgred" :title "PayPal" :target "_blank"} "paypal.me/mtgred"]]
-           [:li "Bitcoin: " [:span.bitcoin "1MRRtCsZYGdgwvRo4NMhmo14q7KJNtAiKL" [:img.qr {:src "/img/bitcoin.png" :alt "Bitcoin QR Code"}]]]]
+           [:li "PayPal: jiggler00@hotmail.com "]] ;[:a {:href "https://www.paypal.me/mtgred" :title "PayPal" :target "_blank"} "paypal.me/mtgred"]]
+           ;[:li "Bitcoin: " [:span.bitcoin "1MRRtCsZYGdgwvRo4NMhmo14q7KJNtAiKL" [:img.qr {:src "/img/bitcoin.png" :alt "Bitcoin QR Code"}]]]]
 
           [tr-element :p [:about_thank-you "Many thanks to all the donors. Your contributions and kind words are greatly appreciated. You help finance fast servers."]]
           [:ul.list.compact

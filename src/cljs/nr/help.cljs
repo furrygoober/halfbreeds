@@ -292,37 +292,37 @@
                         [:p "This is most likely a websocket issue. Check if your network filters let through traffic from ws.jinteki.net. "
                          "Whitelisting *.jinteki.net should solve the problem."]]})}
     {:id "getinvolved"
-     :title "Getting Involved"
+     :title "Don't be afraid to ask other acolytes of Apex for help"
      :sub (list
-            {:id "reportingbugs"
-             :title "How can I report a bug?"
-             :content [:ul
-                        [:p "The best place to report bugs is the " [:a {:href "https://github.com/mtgred/netrunner/issues" :target "_blank"} "GitHub issue tracker"]
-                         ". Before reporting, it is best to make a quick search to see if it's already been reported. "
-                         "If the bug concerns a card, look it up in "
-                         [:a {:href "https://docs.google.com/spreadsheets/d/1ICv19cNjSaW9C-DoEEGH3iFt09PBTob4CAutGex0gnE/pubhtml" :target "_blank"} "Card implementation status"]
-                         " - the card in question may be unimplemented yet."]]}
-            {:id "features"
-             :title "How can I suggest a feature?"
-             :content [:ul
-                        [:p "Same as bugs - feature requests should go on the " [:a {:href "https://github.com/mtgred/netrunner/issues" :target "_blank"} "GitHub issue tracker"]
-                       ". Again, it's best to make a quick search first to avoid duplicating existing issues."]]}
+           ; {:id "reportingbugs"
+           ;  :title "How can I report a bug?"
+           ;  :content [:ul
+           ;             [:p "The best place to report bugs is the " [:a {:href "https://github.com/mtgred/netrunner/issues" :target "_blank"} "GitHub issue tracker"]
+           ;              ". Before reporting, it is best to make a quick search to see if it's already been reported. "
+           ;              "If the bug concerns a card, look it up in "
+           ;              [:a {:href "https://docs.google.com/spreadsheets/d/1ICv19cNjSaW9C-DoEEGH3iFt09PBTob4CAutGex0gnE/pubhtml" :target "_blank"} "Card implementation status"]
+           ;              " - the card in question may be unimplemented yet."]]}
+           ; {:id "features"
+           ;  :title "How can I suggest a feature?"
+           ;  :content [:ul
+           ;             [:p "Same as bugs - feature requests should go on the " [:a {:href "https://github.com/mtgred/netrunner/issues" :target "_blank"} "GitHub issue tracker"]
+           ;            ". Again, it's best to make a quick search first to avoid duplicating existing issues."]]}
             {:id "donations"
              :title "How can I make a donation?"
              :content [:ul
                         [:p "Donation info can be found on the " [:a {:href "/about"} "About"] " page."]]}
-            {:id "devs"
-             :title "How can I help with the coding/webdesign?"
-             :content [:ul [:p "Visit the project page on " [:a {:href "https://github.com/mtgred/netrunner/" :target "_blank"} "GitHub"] " and fork "
-                             "the repository. Implement the changes you were planning on doing and create a PR (Pull Request). If you are in "
-                             "need of some ideas, check out " [:a {:href "https://github.com/mtgred/netrunner/labels/easy" :target "_blank"} "issues marked 'easy' on GitHub"] "."]
-                            [:p "After two of your PRs have been merged into the master branch, send an e-mail to "
-                             [:a {:href "mailto:mtgred@gmail.com"} "mtgred@gmail.com"] " stating who you are on GitHub and ask for access "
-                             "to Jinteki.net Slack, so you can get in better contact with the dev team."]]}
+           ; {:id "devs"
+           ;  :title "How can I help with the coding/webdesign?"
+           ;  :content [:ul [:p "Visit the project page on " [:a {:href "https://github.com/mtgred/netrunner/" :target "_blank"} "GitHub"] " and fork "
+           ;                  "the repository. Implement the changes you were planning on doing and create a PR (Pull Request). If you are in "
+           ;                  "need of some ideas, check out " [:a {:href "https://github.com/mtgred/netrunner/labels/easy" :target "_blank"} "issues marked 'easy' on GitHub"] "."]
+           ;                 [:p "After two of your PRs have been merged into the master branch, send an e-mail to "
+           ;                  [:a {:href "mailto:mtgred@gmail.com"} "mtgred@gmail.com"] " stating who you are on GitHub and ask for access "
+           ;                  "to Jinteki.net Slack, so you can get in better contact with the dev team."]]}
             {:id "awesome"
-             :title "Why is this site so awesome?"
+             :title "When all else fails:"
              :content [:ul
-                        [:p "Because We Built It."]]})}))
+                        [:p "RTFM"]]})}))
 
 (def help-toc
   "Generates list serving as help's table of contents. Parses help-data."
