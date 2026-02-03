@@ -49,6 +49,10 @@
           [tr-element :h4 [:about_content-creators "Other places that may be of worship, or uplink access points, or network nodes:"]]
           [:ul.list.compact
            [:li
+            [linked-person "halfbreeds site" "https://halfbreeds.netrunner.es"] ", "
+            [linked-person "halfbreeds on reddit" "https://www.reddit.com/r/halfbreeds/"] ", "
+            [linked-person "halfbreeds pending" "nothing yet"]] 
+           [:li
             [linked-person "reteki.fun" "https://reteki.fun/"] ", "
             [linked-person "reteki db" "https://nrdb.reteki.fun/"] ": "
             [linked-person "reteki info " "https://sites.google.com/view/netrunner-reboot-project/"] ": "
@@ -62,8 +66,6 @@
            [:li [linked-person "chiriboga" "https://chiriboga.sifnt.net.au/"] ": "; [linked-person "xiaat" "https://github.com/xiaat"] ": "
             [tr-span [:about_alt-art-management "Play against a false god"]]]
            ;[:li "PopTartNZ: " [tr-span [:about_high-res-images "High-resolution scans for FFG cards."]]]
-           [:li
-            [linked-person "halfbreeds" "https://halfbreeds.netrunner.es"] ": This site"]
            [:li
             [linked-person "jinteki" "https://jinteki.net"] ","
             [linked-person "netrunnerdb" "netrunnerdb.com"] ": The source"]

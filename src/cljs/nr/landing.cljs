@@ -24,7 +24,7 @@
     ;[tr-element :li [:landing_please-no-smut "The use of sexualized language or imagery."]]
     ;[tr-element :li [:landing_please-no-trigger-mocking "Making light of/making mocking comments about trigger warnings or content warnings."]]
     [tr-element :li [:landing_please-no-misgendering "Deliberately using incorrect pronouns for a person, especially after being informed of the correct ones. If unsure, use gender-neutral language."]]]
-   (let [mail [:a {:href "mailto:no@no.com"}"no@no.com"]]
+   (let [mail [:a {:href "mailto:halfbreeds.netrunner@gmail.com"}"halfbreeds.netrunner@gmail.com"]]
      [tr-element-with-embedded-content :p [:landing_report-here [:span "To report an incident or to contact the moderation team please email " mail ". If reporting an incident, please include screenshots if possible."]] {:email mail}])
    ;[tr-element :p [:landing_moderators-will-respond "Moderators will respond to offenses by attempting to contact users for resolution where possible. Repeated/severe offenses will be reviewed by the moderation team and met with temporary or permanent bans. All bans are reviewed by the entire moderation team."]]
    [tr-element :p [:landing_moderators-arent-judges "Moderators are not here to settle rules disputes or otherwise serve as judges. If there is a rules disagreement, bringing it to a community space is the best plan for resolution."]]])

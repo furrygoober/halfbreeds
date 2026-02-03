@@ -26,7 +26,7 @@
              :user nil
              :pass nil
              :ssl  nil
-             :from "zero4uptime@gmail.com"
+             :from "halfbreeds.netrunner@gmail.com"
              :reset-subject "Jinteki Password Reset"
              :confirm-reset-subject "Your password has been changed"}
  :web/app {:server-mode #ig/ref :server/mode
