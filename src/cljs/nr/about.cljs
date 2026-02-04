@@ -49,7 +49,7 @@
           [tr-element :h4 [:about_content-creators "Other places that may be of worship, or uplink access points, or network nodes:"]]
           [:ul.list.compact
            [:li
-            [linked-person "halfbreeds site" "https://halfbreeds.netrunner.es"] ", "
+            [linked-person "halfbreeds site" "https://halfbreeds.halfbreeds.internet-slackers.us"] ", "
             [linked-person "halfbreeds on reddit" "https://www.reddit.com/r/halfbreeds/"] ", "
             [linked-person "halfbreeds pending" "nothing yet"]] 
            [:li

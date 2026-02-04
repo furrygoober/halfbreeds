@@ -3,3 +3,10 @@ npm run css:build
 lein fetch --local ../halfbreed-data
 lein create-indexes
 lein repl
+
+# docker related stuff
+docker-compose up --build
+
+docker exec -it halfbreeds-server-1 /bin/bash
+    lein fetch -r furrygoober/halfbreed-data
+    lein create-indexes
