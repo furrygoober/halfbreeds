@@ -22,7 +22,7 @@
             :rate-window 60
             ;; number of messages allowed in the sliding window
             :rate-cnt 10}
- :web/email {:host "127.0.0.1"
+ :web/email {:host "172.17.0.1"
              :user nil
              :pass nil
              :ssl  nil
