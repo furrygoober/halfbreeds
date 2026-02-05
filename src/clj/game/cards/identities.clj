@@ -2811,8 +2811,8 @@
               :async true
               :waiting-prompt true
               :effect (req (let [consoles (->> (server-cards)
-                                                 (filter #(and (has-subtype? % "Console") (is-cost? % 6) (is-fact? % "Criminal") (is-nottitle? % "Desperado")))
-                                                 ;(filter #(and (is-fact? % "Criminal") (has-subtype? % "Console") (is-cost? % "3")))
+                                                 ;(filter #(and (has-subtype? % "Console") (is-cost? % 6) (is-fact? % "Criminal") (is-nottitle? % "Desperado")))
+                                                 (filter #(and (has-subtype? % "Console") (is-cost? % 6) (is-fact? % "Criminal")))
                                                  (map make-card)
                                                  (map #(assoc % :zone [:play-area]))
                                                  (into []))]
@@ -2820,7 +2820,7 @@
                              (swap! state assoc-in [:runner :play-area] consoles)
                              (continue-ability
                                state side
-                               {:prompt (str "Which console did Haze five finger discount:")
+                               {:prompt (str "Which console did Haze borrow:")
                                 :choices {:max 1
                                           :all true
                                           :card #(and (runner? %)
