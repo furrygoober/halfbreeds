@@ -2819,5 +2819,7 @@
                  :ability {:async true
                            :cost [(->c :connection 1)]
                            :msg (msg "prevent 1 " (damage-name state) " damage")
-                           :req (req (preventable? context))
+                           ;:req (req (preventable? context))
+                            :req (req (and (= :meat (:type context))
+                                          (preventable? context)))
                            :effect (req (prevent-damage state side eid 1))}}]})
