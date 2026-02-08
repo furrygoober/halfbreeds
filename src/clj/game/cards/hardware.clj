@@ -2810,3 +2810,14 @@
                 :effect (req (play-sfx state side "professional-contacts")
                              (wait-for (gain-credits state side 1 {:suppress-checkpoint true})
                                        (draw state side eid 2)))}]})
+
+(defcard "Betrayer"
+  {:static-abilities [(mu+ 1)]
+   :prevention [{:prevents :damage
+                 :type :ability
+                 :label "Betrayer"
+                 :ability {:async true
+                           :cost [(->c :connection 1)]
+                           :msg (msg "prevent 1 " (damage-name state) " damage")
+                           :req (req (preventable? context))
+                           :effect (req (prevent-damage state side eid 1))}}]})
