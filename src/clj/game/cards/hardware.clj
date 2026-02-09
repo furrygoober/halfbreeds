@@ -2823,3 +2823,15 @@
                             :req (req (and (= :meat (:type context))
                                           (preventable? context)))
                            :effect (req (prevent-damage state side eid 1))}}]})
+
+(defcard "Propagation Engine"
+  {:static-abilities [(virus-mu+ 1)]
+  :recurring 1
+   :interactions
+   {:pay-credits
+    {:req (req (or (and (= :runner-install (:source-type eid))
+                        (has-subtype? target "Virus")
+                        (program? target))
+                   (and (= :ability (:source-type eid))
+                        (has-subtype? target "Virus"))))
+     :type :recurring}}})
