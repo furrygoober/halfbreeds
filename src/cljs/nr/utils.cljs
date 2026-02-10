@@ -132,7 +132,7 @@
 
 (def slug->format
   (ordered-map
-   "standard" "Standard"
+   "casual" "Casual"
    "throwback" "Throwback"
    "startup" "Startup"
    "system-gateway" "System Gateway"
@@ -140,11 +140,11 @@
    "preconstructed" "Preconstructed"
    "chimera" "Chimera"
    "eternal" "Eternal"
-   "casual" "Casual"))
+   "standard" "Standard"))
 
 (def format->slug
   (ordered-map
-   "Standard" "standard"
+   "Casual" "casual"
    "Throwback" "throwback"
    "Startup" "startup"
    "System Gateway" "system-gateway"
@@ -152,7 +152,7 @@
    "Preconstructed" "preconstructed"
    "Chimera" "chimera"
    "Eternal" "eternal"
-   "Casual" "casual"))
+   "Standard" "standard"))
 
 (defn regex-escape
   "Escape characters in a string which have special meanings in regexes"

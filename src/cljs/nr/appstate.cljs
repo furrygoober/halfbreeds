@@ -20,7 +20,7 @@
 (defn- load-visible-formats
   "Loading visible formats from localStorage"
   []
-  (let [default-visible-formats #{"standard"
+  (let [default-visible-formats #{"casual"
                                   "system-gateway"
                                   "core"
                                   "throwback"
@@ -28,7 +28,7 @@
                                   "eternal"
                                   "preconstructed"
                                   "chimera"
-                                  "casual"}]
+                                  "standard"}]
     (ls/load "visible-formats" default-visible-formats)))
 
 
