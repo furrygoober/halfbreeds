@@ -6,7 +6,7 @@
    [game.core.card :refer [active? agenda? asset? card-index corp? event? facedown? faceup?
                            get-advancement-requirement get-card get-counters
                            get-nested-host get-title get-zone
-                           hardware? has-subtype? has-any-subtype? in-hand? in-discard? ice? installed?
+                           hardware? has-subtype? has-any-subtype? in-hand? in-discard? ice? installed? is-nottitle?
                            is-type? program? resource? rezzed? runner?]]
    [game.core.card-defs :refer [card-def]]
    [game.core.charge :refer [charge-ability]]
@@ -3572,3 +3572,12 @@
   (cloud-icebreaker
     (auto-icebreaker {:abilities [(break-sub 1 1 "Code Gate")
                                   (strength-pump 1 1)]})))
+
+(defcard "Cryptojack"
+   {:events [{:event :runner-install
+              :interactive (req true)
+              :req (req (and (has-subtype? (:card context) "Virus")
+                   (is-nottitle? (:card context) "Cryptojack")))
+              :async true
+              :effect (effect (gain-credits eid 1))
+              :msg "gain 1 [Credits]"}]})

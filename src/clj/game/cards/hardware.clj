@@ -6,7 +6,7 @@
    [game.core.actions :refer [play-ability]]
    [game.core.board :refer [all-active all-active-installed all-installed]]
    [game.core.card :refer [agenda? corp? event? facedown? get-card get-counters get-title
-                           get-zone hardware? has-subtype? has-any-subtype? ice? in-deck? in-discard?
+                           get-zone hardware? has-subtype? has-any-subtype? ice? in-deck? in-discard? is-nottitle?
                            in-hand? in-scored? installed? is-type? program? resource? rezzed?
                            runner? virus-program? faceup?]]
    [game.core.card-defs :refer [card-def]]
@@ -2835,3 +2835,4 @@
                    (and (= :ability (:source-type eid))
                         (has-subtype? target "Virus"))))
      :type :recurring}}})
+

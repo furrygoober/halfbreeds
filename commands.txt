@@ -1,3 +1,8 @@
+# site
+# https://halfbreeds.internet-slackers.us
+
+## commands
+
 npm run cljs:build
 npm run css:build
 lein fetch --local ../halfbreed-data
