@@ -1,6 +1,6 @@
 # Netrunner in the browser
 
-Hosted at [https://halfbreeds.internet-slackers.us)(https://halfbreeds.internet-slackers.us)). [Example of gameplay](https://www.youtube.com/watch?v=cnWudnpeY2c).
+Hosted at [https://halfbreeds.internet-slackers.us](https://halfbreeds.internet-slackers.us)). [Example of gameplay](https://www.youtube.com/watch?v=cnWudnpeY2c).
 
 ![screenshot](http://i.imgur.com/xkxOMHc.jpg)
 
