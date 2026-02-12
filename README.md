@@ -2,7 +2,7 @@
 
 Hosted at [https://halfbreeds.internet-slackers.us](https://halfbreeds.internet-slackers.us)). [Example of gameplay](https://www.youtube.com/watch?v=cnWudnpeY2c).
 
-![screenshot](https://imgur.com/UvlK9it)
+![screenshot](https://i.imgur.com/UvlK9it.jpg)
 
 ## Card implementation status
 
