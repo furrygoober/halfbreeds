@@ -4106,3 +4106,16 @@
                :effect (effect (add-counter eid card :credit 1))}]
      :abilities [(take-all-credits-ability {:action true
                                             :cost [(->c :click 1)]})]}))
+
+ (defcard "Panhandler"
+    (let [ability {:label "Gain 1 [Credits] (start of turn)"
+                  :automatic :gain-credits
+                  :msg "gain 1 [Credits]"
+                  :once :per-turn
+                  :async true
+                  :effect (effect (gain-credits eid 1))}]
+     {:flags {:drip-economy true}
+      :abilities [ability]
+      :events [(assoc ability :event :runner-turn-begins)]
+      :on-install {:async true
+            :effect (effect (lose-credits :runner eid :all))}}))    
