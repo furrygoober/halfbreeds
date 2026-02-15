@@ -2837,3 +2837,11 @@
                                                    (effect-completed state nil eid))
                                              )}
                                card nil)))}]})
+
+(defcard "Tina: Light-Fingered"
+  (letfn [(tina-type? [card] (:uniqueness card))
+          (not-triggered? [state] (no-event? state :runner :runner-install #(tina-type? (:card (first %)))))]
+    {:static-abilities [{:type :install-cost
+                         :req (req (and (tina-type? target)
+                                        (not-triggered? state)))
+                         :value -2}]}))
