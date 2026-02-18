@@ -3591,7 +3591,7 @@
      :events [{:event :successful-run
            :req (req (= (zone->name (:server context)) (:card-target (get-card state card))))
            :interactive (req true)
-           :msg "Accessing HQ"
+           :msg "count the run as a successful run on HQ"
            :effect (req (and (swap! state update-in [:runner :register :successful-run] conj :hq))
                         (let [target (first (shuffle (:hand corp)))]
                              (system-msg state :runner (str "uses " (:title card) " to force the Corp to reveal " (:title target) " from HQ"))
