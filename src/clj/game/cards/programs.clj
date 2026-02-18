@@ -3588,13 +3588,13 @@
                  :choices (req remotes)
                  :effect (effect (update! (assoc card :card-target target)))}
      :leave-play (effect (update! (dissoc card :card-target)))
-     :events [{:event :pre-successful-run
+     :events [{:event :successful-run
            :req (req (= (zone->name (:server context)) (:card-target (get-card state card))))
            :interactive (req true)
            :msg "Accessing HQ"
-           :effect (req (swap! state assoc-in [:run :server] [:hq]))}
-           {:event :successful-run
-             :req (req (= (zone->name (:server context)) (:card-target (get-card state card))))
-             :effect (effect (prevent-access))
-                }
+           :effect (req (and (swap! state update-in [:runner :register :successful-run] conj :hq))
+                        (let [target (first (shuffle (:hand corp)))]
+                             (system-msg state :runner (str "uses " (:title card) " to force the Corp to reveal " (:title target) " from HQ"))
+                             (reveal state :corp eid target)))
+               }
                  ]})
