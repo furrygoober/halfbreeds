@@ -3582,24 +3582,19 @@
               :effect (effect (gain-credits eid 1))
               :msg "gain 1 [Credits]"}]})
 
-(defcard "Remote Connection"
-   {:req (req (some #{:hq :rd :archives} (:successful-run runner-reg)))
-    :on-install {:prompt "Choose a server"
-                :choices (req remotes)
-                :effect (effect (update! (assoc card :card-target target)))}
-    :leave-play (effect (update! (dissoc card :card-target)))
-	:events [{:event :pre-successful-run
-          :req (req (= (zone->name (:server context)) (:card-target (get-card state card))))
-          :interactive (req true)
-          :msg "Accessing HQ"
-          :effect (req (swap! state assoc-in [:run :server] [:hq]))}
-          {:event :successful-run
-            :effect (effect (prevent-access))}
-          {:event :successful-run
-                  :silent (req true)
-                  :async true
-                  :effect (req (let [target (first (shuffle (:hand corp)))]
-                       (system-msg state :runner (str "uses " (:title card) " to force the Corp to reveal " (:title target) " from HQ"))
-                       (reveal state :corp eid target)))}
-
-				]})
+ (defcard "Remote Connection"
+    {:req (req (some #{:hq :rd :archives} (:successful-run runner-reg)))
+     :on-install {:prompt "Choose a server"
+                 :choices (req remotes)
+                 :effect (effect (update! (assoc card :card-target target)))}
+     :leave-play (effect (update! (dissoc card :card-target)))
+     :events [{:event :pre-successful-run
+           :req (req (= (zone->name (:server context)) (:card-target (get-card state card))))
+           :interactive (req true)
+           :msg "Accessing HQ"
+           :effect (req (swap! state assoc-in [:run :server] [:hq]))}
+           {:event :successful-run
+             :req (req (= (zone->name (:server context)) (:card-target (get-card state card))))
+             :effect (effect (prevent-access))
+                }
+                 ]})

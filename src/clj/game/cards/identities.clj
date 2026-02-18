@@ -2839,9 +2839,12 @@
                                card nil)))}]})
 
 (defcard "Tina: Light-Fingered"
-  (letfn [(tina-type? [card] (:uniqueness card))
+ (letfn [(tina-type? [card] (:uniqueness card))
           (not-triggered? [state] (no-event? state :runner :runner-install #(tina-type? (:card (first %)))))]
-    {:static-abilities [{:type :install-cost
-                         :req (req (and (tina-type? target)
-                                        (not-triggered? state)))
-                         :value -2}]}))
+	    {:events [{:event :runner-install
+             ;:silent (req true)
+             :req (req (and (first-event? state runner :runner-install) (tina-type? (:card context))))
+		     :automatic :gain-credits
+		     :msg "gain 2 [Credits]"
+		     :async true
+             :effect (effect (gain-credits eid 2))}]}))
