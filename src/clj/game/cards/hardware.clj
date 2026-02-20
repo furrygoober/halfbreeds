@@ -2836,3 +2836,16 @@
                         (has-subtype? target "Virus"))))
      :type :recurring}}})
 
+
+(defcard "Robin"
+  {:events [{:event :successful-run
+             :automatic :drain-credits
+             :req (req (and (= :hq (target-server context)) (< (:credit runner) (:credit corp))))
+             :msg "gain 1 [Credits] and force the Corp to lose 1 [Credits]"
+             :async true
+             :silent (req true)
+             :effect (req (if (pos? (:credit corp))
+                            (wait-for (lose-credits state :corp 1)
+                                      (system-msg state side (str "uses " (:title card) " to gain 1 [Credits]"))
+                                      (gain-credits state :runner eid 1))
+                            (effect-completed state side eid)))}]})
