@@ -4163,3 +4163,31 @@
                :choices (req runnable-servers)
                :effect (req (wait-for (resolve-ability state side install-abi card nil)
                                       (make-run state side eid target card)))}}))
+
+
+(defcard "Record Removal"
+  {:makes-run true
+   :on-play (run-server-ability :hq)
+   :events [{:event :successful-run
+             :req (req (and (= :hq (target-server context)) this-card-run))
+             :effect (req
+                       ;; 1. Add the access bonus
+                       (register-events state side card [(breach-access-bonus :hq 1 {:duration :end-of-run})])
+                       ;; 2. Start a "Tally" on the card
+                       (update! state side (assoc card :rec-rem-count 0))
+                       ;; 3. Register listeners to count and then fire
+                       (register-events state side card
+                         [{:event :access
+                           :duration :end-of-run
+                           :effect (req (let [c (get-card state card)
+                                              current (:rec-rem-count c 0)]
+                                          (update! state side (assoc c :rec-rem-count (inc current)))))}
+                          {:event :run-ends
+                           :duration :end-of-run
+                           :unregister-once-resolved true
+                           :async true
+                           :effect (req (let [n (:rec-rem-count (get-card state card) 0)]
+                                          (if (pos? n)
+                                            (do (system-msg state side (str "uses Record Removal to lose " n " tags"))
+                                                (lose-tags state side eid n))
+                                            (effect-completed state side eid))))}]))}]})
