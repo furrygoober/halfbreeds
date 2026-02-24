@@ -4191,3 +4191,31 @@
                                             (do (system-msg state side (str "uses Record Removal to lose " n " tags"))
                                                 (lose-tags state side eid n))
                                             (effect-completed state side eid))))}]))}]})
+
+
+
+(defcard "Rechannel Funds"
+  {:makes-run true
+   :on-play (run-any-server-ability
+              {:choices (req (let [all-servers (keys (get-in @state [:corp :servers]))]
+                               (filter #(not (#{:hq :rd :archives} %)) all-servers)))})
+   :events [{:event :successful-run
+             :req (req this-card-run)
+             :async true
+             :effect (req (let [server (-> @state :run :server first)
+                                content (get-in @state [:corp :servers server :content])
+                                rezzed-cards (filter rezzed? content)
+                                credit-amount (* 3 (count content))]
+
+                            ;; 1. Lock down the trash flag immediately
+                            (register-run-flag! state side card :can-trash (fn [_ _ _] false))
+
+                            (msg state side "uses Rechannel Funds to gain " credit-amount
+                                 " [Credits] and derez all cards in the server.")
+
+                            ;; 2. Gain the credits first
+                            (wait-for (gain-credits state side credit-amount)
+                                      ;; 3. Loop through and derez using your working syntax
+                                      (doseq [c rezzed-cards]
+                                        (derez state side eid c))
+                                      (effect-completed state side eid))))}]})

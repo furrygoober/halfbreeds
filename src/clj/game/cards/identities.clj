@@ -2842,7 +2842,7 @@
  (letfn [(tina-type? [card] (:uniqueness card))
           (not-triggered? [state] (no-event? state :runner :runner-install #(tina-type? (:card (first %)))))]
 	    {:events [{:event :runner-install
-             ;:silent (req true)
+            ;:silent (req true)
              :req (req (and (first-event? state runner :runner-install) (tina-type? (:card context))))
 		     :automatic :gain-credits
 		     :msg "gain 2 [Credits]"
