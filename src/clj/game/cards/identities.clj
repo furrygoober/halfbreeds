@@ -2848,3 +2848,28 @@
 		     :msg "gain 2 [Credits]"
 		     :async true
              :effect (effect (gain-credits eid 2))}]}))
+
+
+(defcard "Fuse: Scrap Junky"
+  {:abilities
+   [{:action true
+     :once :per-turn
+     :req (req (>= (count (filter hardware? (:hand runner))) 3))
+     :cost [(->c :click 1)
+            (->c :trash-from-hand 2 {:card #(hardware? %)})]
+     :label "Trash 2 hardware to install a hardware (6[Credits] discount)"
+     :effect
+     (req
+       (continue-ability
+         state side
+         {:prompt "Choose a hardware to install"
+          :choices {:req (req (and (hardware? target)
+                                   (in-hand? target)))}
+          :msg (msg "trash 2 hardware to install "
+                    (:title target)
+                    " with a 4[Credits] discount")
+          :effect
+          (req
+            (runner-install state side eid target
+                            {:cost-bonus -4}))}
+         card nil))}]} )
