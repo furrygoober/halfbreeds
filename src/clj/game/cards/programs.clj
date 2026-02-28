@@ -3611,3 +3611,9 @@
                                                   (system-msg state :runner (str "uses " (:title card) " to force the Corp to reveal " (:title reveal-target) " from HQ"))
                                                      (reveal state :corp eid reveal-target)))}])
                                (make-run state side eid initial-server card)))}]})
+
+
+(defcard "Chinook"
+  (cloud-icebreaker
+    (auto-icebreaker {:abilities [(break-sub 1 1 "Barrier")
+                                  (strength-pump 1 1)]})))
