@@ -4119,3 +4119,18 @@
       :events [(assoc ability :event :runner-turn-begins)]
       :on-install {:async true
             :effect (effect (lose-credits :runner eid :all))}}))    
+
+(defcard "Going Viral"
+  {:on-install
+   {:msg "suffer 1 net damage"
+    :effect (req (damage state side eid :net 1 {:card card}))}
+
+   :events
+   [{:event :damage
+     :req (req (and (= (:damage-type context) :net)
+                    (= "Corp" (:side (:card context)))))
+     :effect (req
+               (let [amount (:amount context)]
+                 (gain-credits state side eid amount)
+                 (system-msg state side
+                   (str "gains " amount " [Credits] from Going Viral"))))}]})
