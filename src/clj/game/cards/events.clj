@@ -4219,3 +4219,36 @@
                                       (doseq [c rezzed-cards]
                                         (derez state side eid c))
                                       (effect-completed state side eid))))}]})
+
+
+(defcard "Day Laborer"
+  {
+   :on-play
+   {:effect
+    (effect
+      (register-events
+        card
+        [{:event :runner-turn-ends
+          :automatic :gain-credits
+          :duration :end-of-turn
+          :unregister-once-resolved true
+          :async true
+          :msg (msg
+                 "gain "
+                 (* 2 (count
+                        (filter
+                          #(and (= :this-turn (:installed %))
+                                (or (= "Hardware" (:type %))
+                                    (= "Resource" (:type %))))
+                          (all-installed state :runner))))
+                 " [Credits]")
+          :effect
+          (effect
+            (gain-credits
+              eid
+              (* 2 (count
+                     (filter
+                       #(and (= :this-turn (:installed %))
+                             (or (= "Hardware" (:type %))
+                                 (= "Resource" (:type %))))
+                       (all-installed state :runner))))))}]))}})

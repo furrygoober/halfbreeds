@@ -1,6 +1,13 @@
 # site
 # https://halfbreeds.internet-slackers.us
 
+## debug commands:
+(def state (:state (second (last (:lobbies @web.app-state/app-state)))))
+(pprint (game.core/all-installed state :corp))
+(pprint (game.core/all-installed state :runner))
+
+state
+
 ## commands
 
 npm run cljs:build
