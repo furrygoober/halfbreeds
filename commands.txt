@@ -23,3 +23,8 @@ docker-compose up --build
 docker exec -it halfbreeds-server-1 /bin/bash
     lein fetch -d --no-card-images -r furrygoober/halfbreed-data
     lein create-indexes
+
+
+#### other ####
+# check identity influence rules
+./src/cljc/jinteki/validator.cljc

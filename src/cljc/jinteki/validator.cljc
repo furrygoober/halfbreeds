@@ -101,6 +101,32 @@
       0
       (* qty (:factioncost card 0)))))
 
+
+(defn crunchman-is-free?
+  "Returns true if ID is Crunchman: Whistleblower and card has Cloud subtype"
+  [deck card]
+  (and (= "Crunchman: Whistleblower" (get-in deck [:identity :title]))
+       (has-subtype? card "Cloud")))
+
+(defn crunchman-other-faction-free?
+  "Crunchman can take one non-Cloud card (full playset) from each other runner faction for 0 influence"
+  [deck card]
+  (let [id-title (get-in deck [:identity :title])
+        id-faction (get-in deck [:identity :faction])
+        faction (:faction card)
+        cards (:cards deck)
+        titles-from-faction
+        (set
+          (map #(get-in % [:card :title])
+               (filter #(and (= faction (get-in % [:card :faction]))
+                             (not (has-subtype? (:card %) "Cloud")))
+                       cards)))]
+    (and (= "Crunchman: Whistleblower" id-title)
+         (= "Runner" (:side card))
+         (not= faction id-faction)
+         (not (has-subtype? card "Cloud"))
+         (<= (count titles-from-faction) 1))))
+
 (defn line-influence-cost
   "Returns the influence cost of the specified card"
   [deck line]
@@ -115,6 +141,12 @@
         (- base-cost (get-in line [:card :factioncost]))
         ;; Check if the card is Alliance and fulfills its requirement
         (alliance-is-free? (:cards deck) line)
+        0
+        ;; Crunchman special rule
+        (crunchman-is-free? deck (:card line)) 
+        0
+        ;; Crunchman: one card per other faction
+        (crunchman-other-faction-free? deck (:card line))
         0
         :else
         base-cost))))

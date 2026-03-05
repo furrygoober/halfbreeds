@@ -2873,3 +2873,7 @@
             (runner-install state side eid target
                             {:cost-bonus -4}))}
          card nil))}]} )
+
+(defcard "Crunchman: Whistleblower"
+  ;; No special implementation
+  {})
