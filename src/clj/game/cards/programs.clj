@@ -3617,3 +3617,34 @@
   (cloud-icebreaker
     (auto-icebreaker {:abilities [(break-sub 1 1 "Barrier")
                                   (strength-pump 1 1)]})))
+
+(def heuristic-subtypes
+  (sort
+   ["Advertisement" "Ambush" "AP" "Deep Net" "Deflector" "Destroyer"
+    "Expendable" "Grail" "Harmonic" "Liability" "Morph" "Mythic"
+    "Observer" "Psi" "Tracer" "Trap"]))
+
+(defcard "Heuristic-Bypass"
+  (auto-icebreaker
+    {:on-install
+     {:prompt "Choose the first subtype"
+      :choices heuristic-subtypes
+      :msg (msg "choose " target " as the first subtype")
+      :effect (req
+                (let [first-choice target]
+                  (continue-ability
+                    state side
+                    {:prompt "Choose the second subtype"
+                     :choices (remove #(= % first-choice) heuristic-subtypes)
+                     :msg (msg "choose " target " as the second subtype")
+                     :effect (effect
+                               (update! (assoc card
+                                          :chosen-subtypes [first-choice target])))}
+                    card nil)))}
+     :abilities
+     [(strength-pump 2 3)
+
+      (break-sub 1 2 "All"
+        {:req (req
+                (let [chosen (:chosen-subtypes card)]
+                  (some #(has-subtype? current-ice %) chosen)))})]}))
