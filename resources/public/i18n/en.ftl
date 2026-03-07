@@ -1471,6 +1471,8 @@ set_name = {$name ->
     [trace-amount] Trace Amount
     [true-colors] True Colors
     [underbelly] Underbelly
+    [the-cubicle-farm] The Cubicle Farm
+    [the-stratos] The Stratos
     [unreleased] Unreleased
     [up-and-over] Up and Over
     [uprising] Uprising

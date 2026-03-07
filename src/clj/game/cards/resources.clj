@@ -4134,3 +4134,13 @@
                  (gain-credits state side eid amount)
                  (system-msg state side
                    (str "gains " amount " [Credits] from Going Viral"))))}]})
+
+(defcard "Neuron Donation"
+  {:abilities
+   [{:cost [:click 1]
+     :async true
+     :label "Gain 6 [Credits] and suffer 1 core damage (cannot be prevented)"
+     :msg "gain 6 [Credits] and suffer 1 core damage that cannot be prevented"
+     :effect (effect
+               (gain-credits 6)
+               (damage eid :brain 1 {:unpreventable true :card card}))}]})
