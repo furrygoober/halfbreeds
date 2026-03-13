@@ -4121,11 +4121,7 @@
             :effect (effect (lose-credits :runner eid :all))}}))    
 
 (defcard "Going Viral"
-  {:on-install
-   {:msg "suffer 1 net damage"
-    :effect (req (damage state side eid :net 1 {:card card}))}
-
-   :events
+   {:events
    [{:event :damage
      :req (req (and (= (:damage-type context) :net)
                     (= "Corp" (:side (:card context)))))
@@ -4136,11 +4132,18 @@
                    (str "gains " amount " [Credits] from Going Viral"))))}]})
 
 (defcard "Neuron Donation"
-  {:abilities
-   [{:cost [:click 1]
+  {:on-install
+   {:async true
+    :msg "suffer 1 core damage"
+    :effect (effect
+              (damage eid :brain 1 {:unpreventable true :card card}))}
+
+   :abilities
+   [{:cost [(->c :click 1)]
+     :once :per-turn
      :async true
-     :label "Gain 6 [Credits] and suffer 1 core damage (cannot be prevented)"
-     :msg "gain 6 [Credits] and suffer 1 core damage that cannot be prevented"
+     :label "Gain 7 [Credits] and suffer 1 core damage (cannot be prevented)"
+     :msg "gain 7 [Credits] and suffer 1 core damage that cannot be prevented"
      :effect (effect
-               (gain-credits 6)
+               (gain-credits eid 7)
                (damage eid :brain 1 {:unpreventable true :card card}))}]})
