@@ -17,6 +17,8 @@ lein fetch --no-card-images --local ../halfbreed-data
 lein create-indexes
 lein repl
 
+
+# may need to stop docker contatiners, then do build to properly update cards
 # docker related stuff
 docker-compose up --build
 

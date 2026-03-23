@@ -4147,3 +4147,51 @@
      :effect (effect
                (gain-credits eid 7)
                (damage eid :brain 1 {:unpreventable true :card card}))}]})
+
+
+(defcard "UBS"
+  {:events
+   [{:event :runner-turn-begins
+     :interactive (req true)
+     :async true
+     :effect
+     (req
+       (let [draw-discard
+             {:label "Draw 1 card, then discard 1 card"
+              :async true
+              :effect
+              (req
+                (wait-for (draw state side 1)
+                  (continue-ability
+                    state side
+                    {:prompt "Choose a card to discard"
+                     :choices {:card #(in-hand? %)}
+                     :effect (effect (move target :discard))}
+                    card nil)
+                  (effect-completed state side eid)))}
+
+             gain-credit
+             {:label "Gain 1 [Credits]"
+              :effect (effect (gain-credits eid 1))}
+
+             gain-click
+             {:label "Gain 1 [Click]"
+              :effect (effect (gain-clicks 1))}
+
+             options
+             (cond-> []
+               (> (:brain-damage runner) 0) (conj draw-discard)
+               (<= (:credit runner) 4) (conj gain-credit)
+               (< (count (:hand runner)) 2) (conj gain-click))]
+
+         (continue-ability
+           state side
+           {:prompt "UBS: Choose an effect"
+            :choices (mapv :label options)
+            :async true
+            :effect
+            (req
+              (let [chosen (first (filter #(= target (:label %)) options))]
+                (resolve-ability state side chosen card nil)
+                (effect-completed state side eid)))}
+           card nil)))}]})
