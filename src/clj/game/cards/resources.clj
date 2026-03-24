@@ -4178,20 +4178,27 @@
              {:label "Gain 1 [Click]"
               :effect (effect (gain-clicks 1))}
 
+             ;; ✅ Only include valid options (your original logic)
              options
              (cond-> []
                (> (:brain-damage runner) 0) (conj draw-discard)
                (<= (:credit runner) 4) (conj gain-credit)
                (< (count (:hand runner)) 2) (conj gain-click))]
 
-         (continue-ability
-           state side
-           {:prompt "UBS: Choose an effect"
-            :choices (mapv :label options)
-            :async true
-            :effect
-            (req
-              (let [chosen (first (filter #(= target (:label %)) options))]
-                (resolve-ability state side chosen card nil)
-                (effect-completed state side eid)))}
-           card nil)))}]})
+         ;; ✅ Fix: handle empty case
+         (if (empty? options)
+           (do
+             (system-msg state side "has no valid UBS options")
+             (effect-completed state side eid))
+
+           (continue-ability
+             state side
+             {:prompt "UBS: Choose an effect"
+              :choices (mapv :label options)
+              :async true
+              :effect
+              (req
+                (let [chosen (some #(when (= target (:label %)) %) options)]
+                  (resolve-ability state side chosen card nil)
+                  (effect-completed state side eid)))}
+             card nil))))}]})

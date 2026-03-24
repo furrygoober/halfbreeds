@@ -17,8 +17,9 @@ lein fetch --no-card-images --local ../halfbreed-data
 lein create-indexes
 lein repl
 
+# stop docker to properly update
+docker stop halfbreeds-server-1; docker stop halfbreeds-cljs-1; docker stop halfbreeds-css-1;docker stop mongodb
 
-# may need to stop docker contatiners, then do build to properly update cards
 # docker related stuff
 docker-compose up --build
 
