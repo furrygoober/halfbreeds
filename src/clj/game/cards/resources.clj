@@ -4202,3 +4202,20 @@
                   (resolve-ability state side chosen card nil)
                   (effect-completed state side eid)))}
              card nil))))}]})
+
+(defcard "Scrap Contract"
+  {:abilities
+   [{:cost [(->c :trash-can)]
+     :label "Remove all cards in the heap to gain credits"
+     :req (req (pos? (count (:discard runner))))
+     :msg (msg "remove all cards in the heap and gain "
+               (quot (count (:discard runner)) 3)
+               " [Credits]")
+     :async true
+     :effect
+     (req
+       (let [heap (:discard runner)
+             credits (quot (count heap) 3)]
+         (doseq [c heap]
+           (move state side c :rfg))
+         (gain-credits state side eid credits)))}]})
