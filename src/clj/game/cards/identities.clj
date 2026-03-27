@@ -2877,3 +2877,11 @@
 (defcard "Crunchman: Whistleblower"
   ;; No special implementation
   {})
+
+(defcard "Thorsons Bloodhounds"
+  {:events [{:event :runner-draw                  ; fires every time the runner draws a card
+             :req (req (and (is-tagged? state)  ; only if runner is currently tagged
+                            (first-event? state side :runner-draw))) ; only the FIRST draw per turn
+             :async true
+             :msg "do 1 meat damage"
+             :effect (effect (damage eid :meat 1 {:card card}))}]}) ; deal 1 meat damage

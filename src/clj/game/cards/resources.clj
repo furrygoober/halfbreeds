@@ -4123,8 +4123,7 @@
 (defcard "Going Viral"
    {:events
    [{:event :damage
-     :req (req (and (= (:damage-type context) :net)
-                    (= "Corp" (:side (:card context)))))
+     :req (req (= (:damage-type context) :net))
      :effect (req
                (let [amount (:amount context)]
                  (gain-credits state side eid amount)
