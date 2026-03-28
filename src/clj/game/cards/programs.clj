@@ -3615,7 +3615,7 @@
 
 (defcard "Chinook"
   (cloud-icebreaker
-    (auto-icebreaker {:abilities [(break-sub 1 1 "Barrier")
+    (auto-icebreaker {:abilities [(break-sub 2 2 "Barrier")
                                   (strength-pump 1 1)]})))
 
 (def heuristic-subtypes
