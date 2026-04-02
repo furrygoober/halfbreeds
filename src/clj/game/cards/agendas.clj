@@ -2571,3 +2571,33 @@
                                       (not (has-subtype? target "Virtual"))
                                       (not (:facedown (second targets)))))
                        :value 1}]})
+
+(defcard "Bait and Switch"
+  {:on-access
+   {:req (req installed)
+    :async true
+    :effect
+    (req
+      (let [adv (get-counters card :advancement)]
+        (if (pos? adv)
+          (letfn [(step [n]
+                    (if (pos? n)
+                      (resolve-ability
+                        state side
+                        {:player :runner
+                         :prompt "Take 1 tag or suffer 1 meat damage?"
+                         :choices ["Take 1 tag" "Suffer 1 meat damage"]
+                         :async true
+                         :effect
+                         (req
+                           (if (= target "Take 1 tag")
+                             (gain-tags state :runner eid 1)
+                             (damage state :corp eid :meat 1 {:card card}))
+                           (step (dec n)))}
+                        card
+                        nil)
+                      ;; ✅ FINISH THE ASYNC CHAIN
+                      (effect-completed state side eid)))]
+            (step adv))
+          ;; no advancements → finish immediately
+          (effect-completed state side eid))))}})
