@@ -4670,3 +4670,18 @@
                                  (do (system-msg state side "does not do core damage with Zed 2.0")
                                      (effect-completed state side eid))))}]
    :runner-abilities [(bioroid-break 2 2)]})
+
+(defcard "PIDS"
+  {:events [(merge
+              (give-tags 1)
+              {:event :bypassed-ice
+               :req (req (same-card? card target))})]
+
+   :on-trash
+   {:when-inactive true               ;; triggers even if not installed
+    :req (req (= :runner side))       ;; only if runner caused the trash
+    :msg "give the Runner 1 tag"
+    :async true
+    :effect (effect (gain-tags :runner eid 1))}
+
+   :subroutines [end-the-run]})

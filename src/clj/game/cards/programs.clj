@@ -3584,34 +3584,41 @@
 
 
 (defcard "Remote Connection"
-  {:on-install {:prompt "Choose a server to monitor"
-                :choices (req remotes)
-                :effect (effect (update! (assoc card :card-target target)))}
+  {:req (req (some #{:hq :rd :archives} (:successful-run runner-reg))) ;; ✅ FIX
+
+   :on-install
+   {:prompt "Choose a server to monitor"
+    :choices (req remotes)
+    :effect (effect (update! (assoc card :card-target target)))}
+
    :abilities [{:action true
                 :cost [(->c :click 1)]
-                ;:msg (msg "make a run on selected remote server ")
                 :msg (msg "make a run on " (zone->name (:zone (:card-target card))))
                 :makes-run true
                 :async true
-                :effect (req (let [initial-server (:card-target (get-card state card))]
-                               (register-events state side card
-                                 [{:event :pre-successful-run
-                                   :duration :end-of-run
-                                   :unregister-once-resolved true
-                                   :req (req (= (unknown->kw initial-server) (-> run :server first)))
-                                   :prompt "Choose a server"
-                                   :choices (req ["R&D" "HQ"])
-                                   :msg (msg "change the attacked server to " target)
-                                   :effect (req (swap! state assoc-in [:run :server] [(unknown->kw target)])
-                                                ;; FIX: Prevent the default access window from opening
-                                                (swap! state assoc-in [:run :replace-access] true)
-                                                  (swap! state assoc-in [:run :prevent-access] true)
-                                                  (swap! state assoc-in [:run :silent] true)
-                                                (let [reveal-target (first (shuffle (:hand corp)))]
-                                                  (system-msg state :runner (str "uses " (:title card) " to force the Corp to reveal " (:title reveal-target) " from HQ"))
-                                                     (reveal state :corp eid reveal-target)))}])
-                               (make-run state side eid initial-server card)))}]})
-
+                :effect
+                (req (let [initial-server (:card-target (get-card state card))]
+                       (register-events state side card
+                         [{:event :pre-successful-run
+                           :duration :end-of-run
+                           :unregister-once-resolved true
+                           :req (req (= (unknown->kw initial-server) (-> run :server first)))
+                           :prompt "Choose a server"
+                           :choices (req ["R&D" "HQ"])
+                           :msg (msg "change the attacked server to " target)
+                           :effect
+                           (req
+                             (swap! state assoc-in [:run :server] [(unknown->kw target)])
+                             (swap! state assoc-in [:run :replace-access] true)
+                             (swap! state assoc-in [:run :prevent-access] true)
+                             (swap! state assoc-in [:run :silent] true)
+                             (let [reveal-target (first (shuffle (:hand corp)))]
+                               (system-msg state :runner
+                                 (str "uses " (:title card)
+                                      " to force the Corp to reveal "
+                                      (:title reveal-target) " from HQ"))
+                               (reveal state :corp eid reveal-target)))}])
+                       (make-run state side eid initial-server card)))}]})
 
 (defcard "Chinook"
   (cloud-icebreaker
