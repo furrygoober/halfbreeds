@@ -4684,4 +4684,5 @@
     :async true
     :effect (effect (gain-tags :runner eid 1))}
 
-   :subroutines [end-the-run]})
+   :subroutines [(tag-trace 3)
+                 end-the-run]})
