@@ -28,7 +28,7 @@
    [game.core.eid :refer [complete-with-result effect-completed is-basic-advance-action? make-eid get-ability-targets]]
    [game.core.engine :refer [not-used-once? pay register-events resolve-ability trigger-event-sync should-trigger?]]
    [game.core.events :refer [first-event? no-event? turn-events event-count]]
-   [game.core.flags :refer [in-corp-scored? in-runner-scored? lock-zone prevent-current
+   [game.core.flags :refer [in-corp-scored? in-runner-scored? lock-zone prevent-current can-advance?
                             prevent-draw
                             register-turn-flag! release-zone when-scored?]]
    [game.core.gaining :refer [gain gain-clicks gain-credits lose lose-clicks
@@ -3567,3 +3567,35 @@
                 :keep-menu-open :while-clicks-left
                 :msg "give the Runner 1 tag"
                 :effect (effect (gain-tags eid 1))}]})
+
+(defcard "Security Lockdown"
+  {:rez-req (req (= :corp (:active-player @state)))
+
+   :on-rez
+   {:msg "take 1 bad publicity and prevent all agenda scoring and stealing"
+    :async true
+    :effect (effect (gain-bad-publicity eid 1))}
+
+   :static-abilities
+   [{:type :cannot-score
+     :value (req true)}
+
+    {:type :cannot-steal
+     :value (req true)}]
+
+   :events
+   [;; advancing tax (already working)
+    {:event :advance
+     :async true
+     :msg "force the Corp to pay 3 [Credits] due to Security Lockdown"
+     :effect (effect (lose-credits eid 3))}
+
+  ;; ✅ FIXED: runner sees the message
+    {:event :access
+     :req (req (agenda? target))
+     :effect (req (toast state :runner "Cannot steal due to Security Lockdown" "warning"))}
+
+    ;; corp reminder (best possible workaround)
+    {:event :corp-turn-begins
+     :once :per-turn
+     :effect (effect (toast "Cannot score agendas while Security Lockdown is active" "warning"))}]})

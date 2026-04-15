@@ -17,16 +17,18 @@ lein fetch --no-card-images --local ../halfbreed-data
 lein create-indexes
 lein repl
 
-# stop docker to properly update
-docker stop halfbreeds-server-1; docker stop halfbreeds-cljs-1; docker stop halfbreeds-css-1;docker stop mongodb
 
-# docker related stuff
-docker-compose up --build
+###### docker #########
 
 docker exec -it halfbreeds-server-1 /bin/bash
     lein fetch -d --no-card-images -r furrygoober/halfbreed-data
     lein create-indexes
 
+# stop docker to properly update
+docker stop halfbreeds-server-1; docker stop halfbreeds-cljs-1; docker stop halfbreeds-css-1;docker stop mongodb
+
+# docker related stuff
+docker-compose up --build
 
 #### other ####
 # check identity influence rules
