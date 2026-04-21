@@ -3363,3 +3363,17 @@
              :change-in-game-state {:req (req (seq (:hand corp)))}
              :async true
              :effect (effect (gain-credits :corp eid (count (:hand corp))))}})
+
+(defcard "Asset Rationalization"
+  {:on-play
+   {:req (req (some #(and (installed? %) (rezzed? %) (or (asset? %) (upgrade? %)))
+                    (all-installed state :corp)))
+    :prompt "Choose an asset or upgrade to derez"
+    :choices {:card #(and (installed? %)
+                          (rezzed? %)
+                          (or (asset? %) (upgrade? %)))}
+    :async true
+    :msg (msg "derez " (:title target) " and gain " (trash-cost state side target) " [Credits]")
+    :effect (req (let [credits (trash-cost state side target)]
+                   (wait-for (derez state side target)
+                     (gain-credits state side eid credits))))}})
