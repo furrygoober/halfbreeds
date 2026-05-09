@@ -2885,3 +2885,37 @@
              :async true
              :msg "do 1 meat damage"
              :effect (effect (damage eid :meat 1 {:card card}))}]}) ; deal 1 meat damage
+
+(defcard "Automata Waste Disposal: Efficient Reclamation"
+  {:events [{:event :corp-turn-ends
+             :async true
+             :interactive (req true)
+             :effect (req (let [heap (:discard runner)]
+                            (cond
+                              ;; No cards in heap - skip silently
+                              (empty? heap)
+                              (effect-completed state side eid)
+
+                              ;; Exactly one card - remove it automatically
+                              (= 1 (count heap))
+                              (let [removed (first heap)]
+                                (system-msg state :corp
+                                            (str "uses " (:title card)
+                                                 " to remove " (:title removed)
+                                                 " from the game"))
+                                (move state :runner removed :rfg)
+                                (effect-completed state side eid))
+
+                              ;; More than one card - prompt corp to choose
+                              :else
+                              (continue-ability
+                                state side
+                                {:prompt "Choose a card in the Runner's Heap to remove from the game"
+                                 :choices (req (cancellable (:discard runner) :sorted))  ;; <-- direct list, no show-discard
+                                 :player :corp
+                                 :msg (msg "remove " (:title target) " from the game")
+                                 :async true
+                                 :effect (req (move state :runner target :rfg)
+                                              (effect-completed state side eid))}
+                                card nil))))}]})
+
