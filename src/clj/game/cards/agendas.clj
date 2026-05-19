@@ -2601,3 +2601,8 @@
             (step adv))
           ;; no advancements → finish immediately
           (effect-completed state side eid))))}})
+
+(defcard "Bioroid Efficiency Protocol"
+  {:static-abilities [{:type :rez-cost
+                       :req (req (has-subtype? target "Bioroid"))
+                       :value -1}]})
