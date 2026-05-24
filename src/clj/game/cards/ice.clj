@@ -4686,3 +4686,70 @@
 
    :subroutines [(tag-trace 3)
                  end-the-run]})
+
+(defcard "IP Audit 1.0"
+  {:additional-cost [(->c :forfeit)]
+   :runner-abilities [(bioroid-break 1 1)]
+   :subroutines
+   [{:label "Trash an installed Virus program"
+     :prompt "Choose an installed Virus program to trash"
+     :change-in-game-state {:silent true
+                            :req (req (some #(and (program? %)
+                                                  (has-subtype? % "Virus"))
+                                           (all-installed state :runner)))}
+     :choices {:card #(and (installed? %)
+                           (program? %)
+                           (has-subtype? % "Virus"))}
+     :msg (msg "trash " (:title target))
+     :async true
+     :effect (effect (trash eid target {:cause :subroutine}))}
+    {:label "Purge virus counters"
+     :msg "purge virus counters"
+     :async true
+     :effect (effect (purge eid))}
+    {:label "Trash an installed Chip"
+     :prompt "Choose an installed Chip to trash"
+     :change-in-game-state {:silent true
+                            :req (req (some #(and (hardware? %)
+                                                  (has-subtype? % "Chip"))
+                                           (all-installed state :runner)))}
+     :choices {:card #(and (installed? %)
+                           (hardware? %)
+                           (has-subtype? % "Chip"))}
+     :msg (msg "trash " (:title target))
+     :async true
+     :effect (effect (trash eid target {:cause :subroutine}))}
+    {:label "Trash an installed Console"
+     :prompt "Choose a Console to trash"
+     :change-in-game-state {:silent true
+                            :req (req (some #(and (hardware? %)
+                                                  (has-subtype? % "Console"))
+                                           (all-installed state :runner)))}
+     :choices {:card #(and (installed? %)
+                           (hardware? %)
+                           (has-subtype? % "Console"))}
+     :msg (msg "trash " (:title target))
+     :async true
+     :effect (effect (trash eid target {:cause :subroutine}))}
+    {:label "Trash an installed Connection"
+     :prompt "Choose an installed Connection to trash"
+     :change-in-game-state {:silent true
+                            :req (req (some #(and (resource? %)
+                                                  (has-subtype? % "Connection"))
+                                           (all-installed state :runner)))}
+     :choices {:card #(and (installed? %)
+                           (resource? %)
+                           (has-subtype? % "Connection"))}
+     :msg (msg "trash " (:title target))
+     :async true
+     :effect (effect (trash eid target {:cause :subroutine}))}
+    {:label "Trash an installed Virtual card"
+     :prompt "Choose an installed Virtual card to trash"
+     :change-in-game-state {:silent true
+                            :req (req (some #(has-subtype? % "Virtual")
+                                           (all-installed state :runner)))}
+     :choices {:card #(and (installed? %)
+                           (has-subtype? % "Virtual"))}
+     :msg (msg "trash " (:title target))
+     :async true
+     :effect (effect (trash eid target {:cause :subroutine}))}]})
