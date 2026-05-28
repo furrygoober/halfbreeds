@@ -14,7 +14,7 @@
                            faceup? fake-identity? get-advancement-requirement
                            get-agenda-points get-card get-counters get-title get-zone hardware? has-subtype?
                            has-any-subtype? ice? identity? in-deck? in-discard? in-hand? in-server? installed? is-type?
-                           operation? program? resource? rezzed? runner? upgrade?]]
+                           operation? program? resource? rezzed? runner? upgrade? in-rfg?]]
    [game.core.card-defs :refer [card-def]]
    [game.core.checkpoint :refer [fake-checkpoint]]
    [game.core.choose-one :refer [choose-one-helper]]
@@ -3599,3 +3599,13 @@
     {:event :corp-turn-begins
      :once :per-turn
      :effect (effect (toast "Cannot score agendas while Security Lockdown is active" "warning"))}]})
+
+(defcard "Liquidation Fee"
+  {:events [{:event :card-moved
+             :req (req (and (in-rfg? (:moved-card context))
+                            (first-event? state side :card-moved
+                                          #(in-rfg? (:moved-card (first %))))))
+             :msg "gain 1 [Credits]"
+             :automatic :gain-credits
+             :async true
+             :effect (effect (gain-credits :corp eid 1))}]})
