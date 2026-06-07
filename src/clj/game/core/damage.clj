@@ -26,7 +26,7 @@
   [state _]
   (swap! state assoc-in [:damage :damage-choose-runner] true))
 
-(defn enable-corp-damage-choice
+ (defn enable-corp-damage-choice
   [state _]
   (swap! state assoc-in [:damage :damage-choose-corp] true))
 
@@ -75,7 +75,9 @@
                                        (take (- n (count chosen-cards)))
                                        (concat chosen-cards))]
                 (when (= dmg-type :brain)
-                  (swap! state update-in [:runner :brain-damage] #(+ % n)))
+                  (swap! state update-in [:runner :brain-damage] #(+ % n))
+                 ;;ADDED following 1 line to set took-brain-damage flag for TBI
+                   (swap! state assoc-in [:runner :register :took-brain-damage] true))
                 (when-let [trashed-msg (enumerate-cards cards-trashed :sorted)]
                   (system-msg state :runner (str "trashes " trashed-msg " due to " (damage-name dmg-type) " damage"))
                   (swap! state update-in [:stats :corp :damage :all] (fnil + 0) n)

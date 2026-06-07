@@ -32,7 +32,7 @@
    [game.core.ice :refer [update-all-ice]]
    [game.core.identities :refer [disable-identity enable-identity]]
    [game.core.initializing :refer [ability-init card-init]]
-   [game.core.installing :refer [corp-install corp-install-msg install-as-condition-counter]]
+   [game.core.installing :refer [corp-install corp-install-msg install-as-condition-counter runner-install]]
    [game.core.memory :refer [mu+ update-mu]]
    [game.core.moving :refer [as-agenda mill move swap-agendas swap-ice trash
                              trash-cards]]
@@ -3377,3 +3377,56 @@
     :effect (req (let [credits (trash-cost state side target)]
                    (wait-for (derez state side target)
                      (gain-credits state side eid credits))))}})
+
+(defcard "Infrapulse"
+  {:on-play
+   {:req (req (and (last-turn? state :runner :took-brain-damage)
+                   (some #(and (installed? %)
+                               (runner? %)
+                               (not (has-subtype? % "Icebreaker")))
+                         (all-installed state :runner))))
+    :async true
+    :waiting-prompt true
+    :prompt "Choose an installed non-Icebreaker card to trash"
+    :choices {:card #(and (installed? %)
+                          (runner? %)
+                          (not (has-subtype? % "Icebreaker")))}
+    :msg (msg "trash " (:title target))
+    :effect (req (let [trashed-title   (:title target)
+                       trashed-type    (:type target)
+                       trashed-subtypes (set (:subtypes target))]
+                   (wait-for
+                     (trash state :runner target {:cause-card card})
+                     (continue-ability
+                       state side
+                       {:optional
+                        {:player :runner
+                         :waiting-prompt true
+                         :prompt (str "Install a card of the same type and subtypes as "
+                                      trashed-title " from the Heap?")
+                         :yes-ability
+                         {:async true
+                          :change-in-game-state
+                          {:req (req (and (not (zone-locked? state :runner :discard))
+                                         (some #(and (runner? %)
+                                                     (= (:type %) trashed-type)
+                                                     (= (set (:subtypes %)) trashed-subtypes)
+                                                     (not= (:title %) trashed-title))
+                                               (:discard runner))))}
+                          :prompt "Choose a card to install from the Heap"
+                          :choices (req (cancellable
+                                          (filter #(and (runner? %)
+                                                        (in-discard? %)
+                                                        (= (:type %) trashed-type)
+                                                        (= (set (:subtypes %)) trashed-subtypes)
+                                                        (not= (:title %) trashed-title))
+                                                  (:discard runner))
+                                          :sorted))
+                          :msg (msg "install " (:title target)
+                                    " from the Heap ignoring all costs")
+                          :effect (req (runner-install state :runner eid target
+                                                       {:ignore-all-cost true
+                                                        :msg-keys {:install-source card
+                                                                   :display-origin true}}))}}}
+                       card nil))))}})
+
