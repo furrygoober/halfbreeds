@@ -4131,21 +4131,20 @@
                    (str "gains " amount " [Credits] from Going Viral"))))}]})
 
 (defcard "Neuron Donation"
-  {:on-install
-   {:async true
-    :msg "suffer 1 core damage"
-    :effect (effect
-              (damage eid :brain 1 {:unpreventable true :card card}))}
-
-   :abilities
-   [{:cost [(->c :click 1)]
+  {:abilities
+   [{:action true
+     :cost [(->c :click 1)]
      :once :per-turn
      :async true
-     :label "Gain 7 [Credits] and suffer 1 core damage (cannot be prevented)"
-     :msg "gain 7 [Credits] and suffer 1 core damage that cannot be prevented"
-     :effect (effect
-               (gain-credits eid 7)
-               (damage eid :brain 1 {:unpreventable true :card card}))}]})
+     :label "Gain 10 [Credits], suffer 1 unpreventable brain damage, and end your action phase"
+     :msg "gain 10 [Credits], suffer 1 unpreventable brain damage, and end [their] action phase"
+     :effect (req (wait-for
+                    (gain-credits state :runner 10)
+                    (wait-for
+                      (damage state :runner :brain 1
+                              {:unpreventable true :card card})
+                      (lose state :runner :click (get-in @state [:runner :click]))
+                      (effect-completed state side eid))))}]})
 
 
 (defcard "UBS"
