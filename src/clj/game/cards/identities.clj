@@ -21,7 +21,7 @@
    [game.core.effects :refer [register-lingering-effect is-disabled?]]
    [game.core.eid :refer [effect-completed get-ability-targets is-basic-advance-action? make-eid]]
    [game.core.engine :refer [not-used-once? pay register-events register-once resolve-ability trigger-event unregister-event-by-uuid]]
-   [game.core.events :refer [event-count first-event? first-trash?
+   [game.core.events :refer [event-count first-event? first-trash? first-run-event?
                              first-successful-run-on-server? no-event? not-last-turn? run-events run-event-count turn-events]]
    [game.core.expose :refer [expose]]
    [game.core.finding :refer [find-latest]]
@@ -2919,3 +2919,13 @@
                                               (effect-completed state side eid))}
                                 card nil))))}]})
 
+(defcard "Neurochem Analytics: Future Minds"
+  {:events [{:event :damage
+             :automatic :gain-credits
+             :req (req (and run
+                            (= (:damage-type context) :net)
+                            (first-run-event? state side :damage
+                                              #(= :net (:damage-type (first %))))))
+             :msg "gain 1 [Credits]"
+             :async true
+             :effect (effect (gain-credits :corp eid 1))}]})
