@@ -27,7 +27,7 @@
    [game.core.effects :refer [is-disabled-reg? register-lingering-effect update-disabled-cards]]
    [game.core.eid :refer [complete-with-result effect-completed is-basic-advance-action? make-eid get-ability-targets]]
    [game.core.engine :refer [not-used-once? pay register-events resolve-ability trigger-event-sync should-trigger?]]
-   [game.core.events :refer [first-event? no-event? turn-events event-count]]
+   [game.core.events :refer [first-event? no-event? turn-events event-count run-events]]
    [game.core.flags :refer [in-corp-scored? in-runner-scored? lock-zone prevent-current can-advance?
                             prevent-draw
                             register-turn-flag! release-zone when-scored?]]
@@ -3609,3 +3609,25 @@
              :automatic :gain-credits
              :async true
              :effect (effect (gain-credits :corp eid 1))}]})
+
+
+(defcard "Personnel Threat Assessment"
+  {:on-rez {:effect (effect (update-all-ice))}
+   :leave-play (effect (update-all-ice))
+   :static-abilities [{:type :ice-strength
+                       :req (req (and (ice? target)
+                                      (rezzed? target)
+                                      (has-subtype? target "AP")))
+                       :value 1}
+                      {:type :ice-strength
+                       :req (req (and run
+                                      (ice? target)
+                                      (rezzed? target)
+                                      (has-subtype? target "AP")))
+                       :value (req (count
+                                     (filter #(and (has-subtype? (:ice (first %)) "AP")
+                                                   (:all-subs-broken (first %)))
+                                             (run-events state side :subroutines-broken))))}]})
+
+
+ 

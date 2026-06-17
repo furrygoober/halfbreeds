@@ -2920,12 +2920,7 @@
                                 card nil))))}]})
 
 (defcard "Neurochem Analytics: Future Minds"
-  {:events [{:event :damage
-             :automatic :gain-credits
-             :req (req (and run
-                            (= (:damage-type context) :net)
-                            (first-run-event? state side :damage
-                                              #(= :net (:damage-type (first %))))))
-             :msg "gain 1 [Credits]"
-             :async true
-             :effect (effect (gain-credits :corp eid 1))}]})
+  {:static-abilities [{:type :card-ability-cost
+                       :req (req (and (= :corp side)
+                                      (has-subtype? (:card context) "Ambush")))
+                       :value (->c :credit -2)}]})
