@@ -2920,7 +2920,8 @@
                                 card nil))))}]})
 
 (defcard "Neurochem Analytics: Future Minds"
-  {:static-abilities [{:type :card-ability-cost
-                       :req (req (and (= :corp side)
-                                      (has-subtype? (:card context) "Ambush")))
-                       :value (->c :credit -2)}]})
+  {:recurring 4
+   :interactions {:pay-credits {:req (req (and (= :corp side)
+                                               (= :ability (:source-type eid))
+                                               (has-subtype? (:source eid) "Ambush")))
+                                :type :recurring}}})
