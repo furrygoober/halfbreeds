@@ -4753,3 +4753,19 @@
      :msg (msg "trash " (:title target))
      :async true
      :effect (effect (trash eid target {:cause :subroutine}))}]})
+
+(defcard "Martingale"
+  {:subroutines
+   [(trace-ability 5
+      {:label "Start a psi game"
+       :msg "start a psi game"
+       :psi {:not-equal
+             {:label "Start a second psi game"
+              :msg "start a second psi game"
+              :async true
+              :psi {:not-equal
+                    {:label "Do 5 net damage"
+                     :msg "do 5 net damage"
+                     :async true
+                     :effect (effect (damage eid :net 6 {:card card}))}}}}})]})
+
