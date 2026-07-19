@@ -4764,8 +4764,8 @@
               :msg "start a second psi game"
               :async true
               :psi {:not-equal
-                    {:label "Do 5 net damage"
-                     :msg "do 5 net damage"
+                    {:label "Do 6 net damage"
+                     :msg "do 6 net damage"
                      :async true
                      :effect (effect (damage eid :net 6 {:card card}))}}}}})]})
 

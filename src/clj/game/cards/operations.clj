@@ -3430,3 +3430,26 @@
                                                                    :display-origin true}}))}}}
                        card nil))))}})
 
+(defcard "Rearm the Grid"
+  {:on-play
+   {:async true
+    :show-discard true
+    :change-in-game-state
+    {:req (req (some #(and (corp? %)
+                           (has-subtype? % "Ambush")
+                           (or (in-discard? %)
+                               (and (installed? %) (rezzed? %))))
+                     (concat (:discard corp) (all-installed state :corp))))}
+    :prompt "Choose up to 4 Ambush cards to shuffle into R&D"
+    :choices {:max 4
+              :card #(and (corp? %)
+                          (has-subtype? % "Ambush")
+                          (or (in-discard? %)
+                              (and (installed? %) (rezzed? %))))}
+    :msg (msg "shuffles " (enumerate-cards targets :sorted)
+              " into R&D and gains " (* 2 (count targets)) " [Credits]")
+    :effect (req (let [n (count targets)]
+                   (doseq [c targets]
+                     (move state :corp c :deck))
+                   (shuffle! state :corp :deck)
+                   (gain-credits state :corp eid (* 2 n))))}})
