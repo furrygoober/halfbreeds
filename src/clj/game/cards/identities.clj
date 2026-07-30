@@ -2928,14 +2928,16 @@
 
 (defcard "Vox Populi: One of Us"
   {:events [{:event :runner-turn-begins
-             :req (req (and (not-last-turn? state :runner :successful-run)
+             :req (req (and (not-last-turn? state :runner :run)
                             (not (is-tagged? state))))
              :msg "give the Runner 1 tag"
              :async true
              :effect (effect (gain-tags :corp eid 1))}
-            {:event :successful-run
-             :req (req (first-event? state side :successful-run))
+            {:event :run
+             :req (req (first-event? state side :run))
              :msg "remove 1 tag"
              :async true
              :effect (effect (lose-tags :runner eid 1))}]})
+
+
 
