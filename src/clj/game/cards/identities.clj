@@ -2933,8 +2933,8 @@
              :msg "give the Runner 1 tag"
              :async true
              :effect (effect (gain-tags :corp eid 1))}
-            {:event :run
-             :req (req (first-event? state side :run))
+            {:event :run-ends
+             :req (req (first-event? state side :run-ends))
              :msg "remove 1 tag"
              :async true
              :effect (effect (lose-tags :runner eid 1))}]})

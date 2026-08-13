@@ -4769,3 +4769,8 @@
                      :async true
                      :effect (effect (damage eid :net 6 {:card card}))}}}}})]})
 
+(defcard "Interstitial"
+  {:on-encounter {:msg (msg (str "gain " (if (is-tagged? state) 2 1) " [Credits]"))
+                  :async true
+                  :effect (req (gain-credits state :corp eid (if (is-tagged? state) 2 1)))}
+   :subroutines [(end-the-run-unless-runner-pays (->c :credit 2))]})
