@@ -2928,7 +2928,7 @@
 
 (defcard "Vox Populi: One of Us"
   {:events [{:event :runner-turn-begins
-             :req (req (and (not-last-turn? state :runner :run)
+             :req (req (and (not-last-turn? state :runner :made-run)
                             (not (is-tagged? state))))
              :msg "give the Runner 1 tag"
              :async true
